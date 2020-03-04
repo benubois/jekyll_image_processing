@@ -1,6 +1,6 @@
 # JekyllImageProcessing
 
-Jekyll plugin for processing images using the [image_processing](https://github.com/janko/image_processing) and [libvips](http://libvips.github.io/libvips/).
+Jekyll plugin for processing images using [image_processing](https://github.com/janko/image_processing) and [libvips](http://libvips.github.io/libvips/).
 
 ## Installation
 
@@ -14,7 +14,7 @@ gem 'jekyll_image_processing', git: 'https://github.com/benubois/jekyll_image_pr
 
 Create a plugin in `_plugins/bundler.rb` with the contents:
 
-```
+```ruby
 require "rubygems"
 require "bundler/setup"
 Bundler.require(:default)
