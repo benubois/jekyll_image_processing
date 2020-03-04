@@ -1,40 +1,54 @@
 # JekyllImageProcessing
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/jekyll_image_processing`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Jekyll plugin for processing images using the [image_processing](https://github.com/janko/image_processing) and [libvips](http://libvips.github.io/libvips/).
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this line to your Jekyll site's Gemfile:
 
 ```ruby
-gem 'jekyll_image_processing'
+gem 'jekyll_image_processing', git: 'https://github.com/benubois/jekyll_image_processing'
 ```
-
-And then execute:
-
-    $ bundle install
-
-Or install it yourself as:
-
-    $ gem install jekyll_image_processing
 
 ## Usage
 
-TODO: Write usage instructions here
+Create a plugin in `_plugins/bundler.rb` with the contents:
 
-## Development
+```
+require "rubygems"
+require "bundler/setup"
+Bundler.require(:default)
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+Define image presets in your _config.yml file, like this:
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```yaml
+image_processing:
+  large:
+    source: photos/original
+    destination: photos/large
+    resize_to_limit: [2048, 2048]
+  thumbnail:
+    source: photos/original
+    destination: photos/thumbnail
+    rotate: 90
+    resize_to_limit: [2048, 2048]
+    invert: null
+    gaussblur: 20
+    crop: [0, 0, 300, 300]
+    gaussblur: 2
+    rotate:
+      args: 45
+      background: [0, 0, 0]
+    resize_to_fill:
+      args: [640, 640]
+      crop: attention
+    saver:
+      quality: 10
+  tint:
+    source: photos/original
+    destination: photos/tint
+    resize_to_limit: [1, 1]
+```
 
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/benubois/jekyll_image_processing.
-
-
-## License
-
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+See the [image_processing documentation](https://github.com/janko/image_processing/blob/master/doc/vips.md#readme) for all available commands.
