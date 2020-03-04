@@ -20,7 +20,7 @@ require "bundler/setup"
 Bundler.require(:default)
 ```
 
-Define image presets in your _config.yml file, like this:
+Define image presets in your _config.yml file:
 
 ```yaml
 image_processing:
