@@ -33,16 +33,17 @@ image_processing:
     destination: photos/thumbnail
     rotate: 90
     resize_to_limit: [2048, 2048]
-    invert: null
+    invert: true
     gaussblur: 20
     crop: [0, 0, 300, 300]
     gaussblur: 2
     rotate:
-      args: 45
-      background: [0, 0, 0]
+      - 45
+      - background: [0, 0, 0]
     resize_to_fill:
-      args: [640, 640]
-      crop: attention
+      - 640
+      - 640
+      - crop: attention
     saver:
       quality: 10
   tint:

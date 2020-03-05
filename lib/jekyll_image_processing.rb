@@ -20,24 +20,12 @@ module Jekyll
         self.class.mtimes[path] = mtime
 
         FileUtils.mkdir_p(File.dirname(dest_path))
-        image = ::ImageProcessing::Vips.source(path)
-        commands.each_pair do |command, arg|
-          args = arg.clone
-          if args.nil?
-            image = image.send command
-          elsif args.respond_to?(:key?) && arg.key?("args")
-            params = args.delete("args")
-            image = image.send command, *params, **args.transform_keys(&:to_sym)
-          elsif args.respond_to?(:transform_keys)
-            image = image.send command, arg.transform_keys(&:to_sym)
-          else
-            image = image.send command, *args
-          end
-        end
-        image.call(destination: dest_path)
+
+        ::ImageProcessing::Vips.source(path).apply(commands).call(destination: dest_path)
 
         true
       end
+
 
     end
 
@@ -52,7 +40,7 @@ module Jekyll
             file = GeneratedImageFile.new(site, site.source, options["destination"], File.basename(source), nil)
             file.dst_dir = options.delete("destination")
             file.src_dir = options.delete("source")
-            file.commands = options
+            file.commands = JSON.parse(JSON[options], symbolize_names: true)
             site.static_files << file
           end
         end
