@@ -53,3 +53,11 @@ image_processing:
 ```
 
 See the [image_processing documentation](https://github.com/janko/image_processing/blob/master/doc/vips.md#readme) for all available commands.
+
+## Linking to Processed Images
+
+A Liquid filter is included to help link to processed images:
+
+```html
+<img src="{{ image.name | processed_path: 'thumbnail' }}">
+```
