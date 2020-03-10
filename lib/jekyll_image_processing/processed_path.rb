@@ -1,14 +1,14 @@
 module Jekyll
   module JekyllImageProcessing
     module ProcessedPath
+      include Jekyll::Filters::URLFilters
+
       def processed_path(name, variant = "")
         config = @context.registers[:site].config
-        path = config.dig("image_processing", variant, "destination")
-        [
-          config["baseurl"],
-          path,
-          name
-        ].compact.join("/")
+        options = config.dig("image_processing", variant)
+        path = options.dig("destination")
+        fingerprint_name = Fingerprint.new(name, options)
+        relative_url("#{path}/#{fingerprint_name}")
       end
     end
   end

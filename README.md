@@ -56,7 +56,7 @@ See the [image_processing documentation](https://github.com/janko/image_processi
 
 ## Linking to Processed Images
 
-A Liquid filter is included to help link to processed images:
+Images are fingerprinted so that they do not need to be reprocessed every time. A Liquid filter is included to help link to processed images:
 
 ```html
 <img src="{{ image.name | processed_path: 'thumbnail' }}">
