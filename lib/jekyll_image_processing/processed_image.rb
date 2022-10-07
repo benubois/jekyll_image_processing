@@ -35,7 +35,7 @@ module Jekyll
         return unless site.config["image_processing"]
 
         site.config["image_processing"].each_pair do |name, preset|
-          Dir.glob(File.join(site.source, preset["source"], "*.{png,jpg,jpeg,gif}")) do |file|
+          Dir.glob(File.join(site.source, preset["source"], "*.{png,jpg,jpeg,gif,webp}")) do |file|
             options = JekyllImageProcessing::Options.new(file, preset.clone)
             file = ProcessedImage.new(site, site.source, options.destination, options.file_name, nil)
             file.image_processing_options = options
